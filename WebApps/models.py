@@ -27,3 +27,20 @@ class User(models.Model):
     #Many To Many
     GroupRelation = models.ManyToManyField('Group')
     #One To One
+
+class Args(models.Model):
+    Name = models.CharField(max_length = 50, null = True)
+    Pass = models.CharField(max_length = 50, null = False)
+
+class Asset(models.Model):
+    HostName = models.CharField(max_length = 50)
+    CreateDate = models.DateTimeField(auto_now_add = True)
+    UpdateDate = models.DateTimeField(auto_now = True)
+
+class Sex(models.Model):
+    GENDER_CHOICE = (
+        (u'1', u'User'),
+        (u'2', u'Admin'),
+        (u'3', u'SuperAdmin')
+    )
+    UserType = models.CharField(max_length = 20, choices = GENDER_CHOICE)

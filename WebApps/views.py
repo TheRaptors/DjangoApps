@@ -37,8 +37,43 @@ def UPdate(request, id, name):
     return HttpResponse('Ok')
 
 def Get(request, name):
+    #返回包含关键字的记录
+    '''
     HostList = Asset.objects.filter(HostName__contains = name)
     print HostList
     for item in HostList:
         print item.HostName
     return HttpResponse('Ok')
+    '''
+
+    #返回所有记录
+    '''
+    AllData = Asset.objects.all()
+    print AllData.query
+    print AllData
+    return HttpResponse('Ok')
+    '''
+    
+    #返回所有记录，只取id,HostName字段
+    AllData = Asset.objects.all().values('id','HostName')
+    print AllData.query
+    print AllData
+    return HttpResponse('Ok')
+    
+    #返回前两条记录
+    '''
+    AllData = Asset.objects.all()[0:2]
+    print AllData.query
+    print AllData
+    return HttpResponse('Ok')
+    '''
+    
+    #返回所有记录，按id倒序排列(PS:'id'为正序)
+    '''
+    AllData = Asset.objects.all().order_by('-id')
+    #显示SQL语句
+    print AllData.query
+    for item in AllData:
+        print item.id
+    return HttpResponse('Ok')
+    '''

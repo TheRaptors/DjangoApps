@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from WebApps.models import Asset
@@ -26,4 +29,16 @@ def Update(request, id, name):
     Obj = Asset.objects.get(id = id)
     Obj.HostName = name
     Obj.save()
+    return HttpResponse('Ok')
+
+#批量更新，if id > value
+def UPdate(request, id, name):
+    Asset.objects.filter(id__gt = id).update(HostName = name)
+    return HttpResponse('Ok')
+
+def Get(request, name):
+    HostList = Asset.objects.filter(HostName__contains = name)
+    print HostList
+    for item in HostList:
+        print item.HostName
     return HttpResponse('Ok')

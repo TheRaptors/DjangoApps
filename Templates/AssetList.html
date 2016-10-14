@@ -15,6 +15,18 @@
                 <td>{{item.UpdateDate}}</td>
             </tr>
         {% endfor %}
+
+        {% if user == 'Ghost' %}
+            <h2>真</h2>
+        {% else %}
+            <h2>假</h2>
+        {% endif %}            
+
+        {% ifequal user 'Ghost' %}
+            <h2>User is Ghost!</h2>
+        {% else %}
+            <h2>User is't Ghost!</h2>
+        {% endifequal %}
     </table>
 </body>
 </html>

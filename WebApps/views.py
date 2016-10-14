@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.http.response import HttpResponse
 from WebApps.models import Asset
 
@@ -77,3 +78,8 @@ def Get(request, name):
         print item.id
     return HttpResponse('Ok')
     '''
+
+def AssetList(request):
+    AssetList = Asset.objects.all()
+
+    return render_to_response('AssetList.html', {'data':AssetList, 'user':'Ghost'})

@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from WebApps.views import index
+from WebApps.views import index, Add, Del, Update
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', index),
+    url(r'^Add/(?P<name>\d*)/$', Add),
+    url(r'^Del/(?P<id>\d*)/$', Del),
+    url(r'^Update/(?P<id>\d*)/(?P<name>\d*)/$', Update),
 ]

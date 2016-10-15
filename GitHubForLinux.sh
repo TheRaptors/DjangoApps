@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cd /root/DjangoProject
+#cd /root/DjangoProject
+
+cd `pwd`
 
 git add -A .
 

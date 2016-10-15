@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -d .git ];then
+if [ ! -d .git -a ! -f manage.py ];then
     echo 'Warning:The Work Directory Is Wrong. Please Check It and Retry!'
 else
     git add -A .

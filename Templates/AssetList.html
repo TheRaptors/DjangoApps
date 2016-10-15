@@ -1,11 +1,8 @@
 <!DOCTYPE html>
+{% extends "MasterOne.html" %}
 {% load tags %}
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+{% block content %}
     <h1>{{ user }}</h1>
     <table border = '1'>
         {% for item in data %}
@@ -17,18 +14,17 @@
                 <td>{{item.UpdateDate}}</td>
             </tr>
         {% endfor %}
-
-        {% if user == 'Ghost' %}
-            <h2>My Name Is Ghost!</h2>
-        {% else %}
-            <h2>Who Is Ghost?</h2>
-        {% endif %}            
-
-        {% ifequal user 'Ghost' %}
-            <h2>User is Ghost!</h2>
-        {% else %}
-            <h2>User is't Ghost!</h2>
-        {% endifequal %}
     </table>
-</body>
-</html>
+
+    {% if user == 'Ghost' %}
+        <h2>My Name Is Ghost!</h2>
+    {% else %}
+        <h2>Who Is Ghost?</h2>
+    {% endif %}        
+
+    {% ifequal user 'Ghost' %}
+        <h2>User is Ghost!</h2>
+    {% else %}
+        <h2>User is't Ghost!</h2>
+    {% endifequal %}
+{% endblock%}

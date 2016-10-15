@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from WebApps.views import index, Add, Del, Update, UPdate, Get, AssetList
+from WebApps.views import index, Add, Del, Update, UPdate, Get, AssetList, Login
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^UPdate/(?P<id>\d*)/(?P<name>\w*)/$', UPdate),
     url(r'^Get/(?P<name>\w*)/$', Get),
     url(r'^AssetList/$', AssetList),
+    url(r'^Login/$', Login),
 ]

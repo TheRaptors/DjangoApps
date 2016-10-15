@@ -83,3 +83,13 @@ def AssetList(request):
     AssetList = Asset.objects.all()
 
     return render_to_response('AssetList.html', {'data':AssetList, 'user':'Ghost'})
+
+
+def Login(request):
+    if request.method == "POST":
+        UserName = request.POST.get('USERNAME', None)
+        Password = request.POST.get('PASSWORD', None)
+        print UserName, Password
+        return render_to_response('Login.html')
+    else:
+        return render_to_response('Login.html')

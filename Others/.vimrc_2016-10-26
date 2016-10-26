@@ -1,0 +1,266 @@
+﻿"设置配色方案"
+"可选项：desert elflord murphy ron torte"
+colorscheme murphy
+
+"为特定文件类型载入相关缩进文件"
+filetype indent on
+
+"检测文件类型"
+filetype on
+
+""
+filetype plugin indent on
+
+"载入文件类型插件"
+filetype plugin on
+
+"设置行号颜色"
+hi LineNr guifg=LightBlue
+
+"显示中文帮助"
+if version >= 603
+    set encoding=utf-8
+    set helplang=cn
+endif
+
+"自动缩进"
+set ai
+"set autoindent"
+
+"当文件被改动时自动载入"
+set autoread
+
+"自动保存"
+set autowrite
+
+"设置背景颜色，黑色"
+set background=dark
+
+"设置C/C++缩进"
+set cindent
+
+"共享剪贴板"
+set clipboard+=unnamed
+
+"命令行(在状态行下)的高度"
+set cmdheight=2
+
+"代码补全"
+set completeopt=longest,menu
+"set completeopt=preview,menu"
+
+"显示光标线"
+set cursorline
+
+"设置编码"
+set encoding=utf-8
+
+"设置缩进为4个空格"
+set expandtab
+
+"vim打开文件时自动辨认的编码，如果为空，则使用encoding"
+set fileencoding=chinese
+set fileencodings=ucs-bom,utf-8,chinese
+
+"设置文件格式"
+set fileformat=unix
+
+"设置字体"
+set guifont=consolas:h14
+"set guifont=Courier_New:h10:cANSI"
+
+"设置历史命令数量"
+set history=1024
+
+"高亮显示关键字"
+"set hls"
+set hlsearch
+
+"搜索时忽略大小写"
+"set ignorecase"
+
+"设置语言"
+set langmenu=zh_CN.UTF-8
+
+"1:启动显示状态行;2:总是显示状态行"
+set laststatus=2
+
+"设置魔术"
+set magic
+
+"匹配括号高亮的时间(0.1s)"
+set matchtime=1
+
+"关闭自动备份"
+set nobackup
+
+"取消vi一致性模式"
+set nocompatible
+
+"取消输入错误的声音提示"
+set noeb
+
+"不要用空格代替制表符"
+set noexpandtab
+
+"显示行号"
+set nu!
+
+"取消行号前的空格"
+set nuw=1
+
+"显示标尺"
+set ruler
+
+""
+set shiftwidth=4
+
+"关闭援助信息"
+set shortmess=atI
+
+"显示输入的命令"
+set showcmd
+
+"高亮显示匹配的括号"
+set showmatch
+
+"智能缩进"
+set si
+"set smartindent"
+
+"在行和段开始处使用制表符"
+set smarttab
+
+"Tab键的宽度"
+set softtabstop=4
+
+"状态行显示的内容"
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\"
+
+"总是显示状态行"
+set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+
+""
+set tabstop=4
+
+"输出到终端使用的编码"
+set termencoding=utf-8
+
+"自动补全命令时，使用菜单式匹配列表"
+set wildmenu
+
+"语法高亮"
+syntax on
+"syntax enable"
+
+"NERDtee设定"
+let NERDChristmasTree=1
+let NERDTreeAutoCenter=1
+let NERDTreeBookmarksFile=$VIM.'\Data\NerdBookmarks.txt'
+let NERDTreeMouseMode=2
+let NERDTreeShowBookmarks=1
+let NERDTreeShowFiles=1
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeWinPos='left'
+let NERDTreeWinSize=31
+nnoremap f :NERDTreeToggle
+map <F7> :NERDTree<CR>
+
+""
+map <F9> :call SaveInputData()<CR>
+func! SaveInputData()
+    exec tabnew
+    exec w! /tmp/input_data
+    exec 'normal +gP'
+endfunc
+
+"自动补全"
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {<CR>}<ESC>O
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap <ESC>i
+:inoremap ' ''<ESC>i
+
+""
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return \<Right>
+    else
+        return a:char
+    endif
+endfunction
+
+"C、C++，按F5编译运行"
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!./%
+    elseif &filetype == 'py'
+        exec "!python %"
+        exec "!python %<"
+    endif
+endfunc
+
+"C、C++，按F8调试"
+map <F8> :call Rungdb()<CR>
+func! Rungdb()
+    exec "w"
+    exec "!g++ % -g -o %<"
+    exec "!gdb ./%<"
+endfunc
+
+"映射Ctrl+A"
+map <C-A> ggVGY
+map! <C-A> <Esc>ggVGY
+map <F12> gg=G
+
+"打开树状文件目录"
+map <C-F3> \be
+
+"列出当前目录文件"
+map <F3> :tabnew .<CR>
+
+"新建标签"
+map <M-F2> :tabnew<CR>
+
+"键盘命令"
+nmap <leader>f :find<cr>
+nmap <leader>w :w!<cr>
+
+"比较文件"
+nnoremap <C-F2> :vert diffsplit
+
+"去空行"
+nnoremap <F2> :g/^\s*$/d<CR>
+
+"映射Ctrl+C"
+vmap <C-c> +y
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"以下设置应用于Windows"
+"隐藏图形按钮"
+"set go="
+"隐藏工具栏"
+"set guioptions-=T"
+"隐藏菜单栏"
+"set guioptions-=m"
+"设置窗口大小"
+"set lines=40 columns=155"
+"设置窗口位置"
+"winpos 5 5"
